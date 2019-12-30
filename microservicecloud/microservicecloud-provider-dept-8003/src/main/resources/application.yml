@@ -1,0 +1,37 @@
+server:
+  port: 8003
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml #mybatis配置文件所在
+  type-aliases-package: com.zwh.springcloud.entities #所有Entities别名类包所在
+  mapper-locations: classpath:mybatis/mapper/**/*.xml #mapper的配置文件
+
+spring:
+  application:
+    name: microservicecloud-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource #当前数据源的操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver #mysql的驱动包
+    url: jdbc:mysql://localhost:3306/cloudDB03?serverTimezone=GMT%2B8 #数据库名称
+    username: root
+    password:
+    dbcp2:
+      min-idle: 5 #数据库连接池最小维持的连接数
+      initial-size: 5 #初始化连接数
+      max-total: 5 #最大连接数
+      max-wait-millis: 200 #等待连接获取的最大超时时间
+
+
+#客户端注册进eureka服务列表内
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: microservicecloud-dept8003 #自定义服务的名称信息
+    prefer-ip-address: true  #访问路径可以显示ip地址
+info:
+  app.name: zwh-microservicecloud
+  company.name: www.zwh.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
